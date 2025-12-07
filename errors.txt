@@ -1,46 +1,63 @@
-13:03:06 Restoring shopsphere (cart_items)
-Running: mysql.exe --defaults-file="C:\Users\703440~1\AppData\Local\Temp\tmpl7l3yv2m.cnf"  --protocol=tcp --host=localhost --user=root --port=3306 --default-character-set=utf8 --comments --database=shopsphere < "C:\\a_1\\ShopDB (1)\\shopsphere_cart_items.sql"
-13:03:06 Restoring shopsphere (carts)
-Running: mysql.exe --defaults-file="C:\Users\703440~1\AppData\Local\Temp\tmpz55ix2jh.cnf"  --protocol=tcp --host=localhost --user=root --port=3306 --default-character-set=utf8 --comments --database=shopsphere < "C:\\a_1\\ShopDB (1)\\shopsphere_carts.sql"
-ERROR 1062 (23000) at line 24: Duplicate entry '1' for key 'carts.PRIMARY'
+Creating schema Shopsphere
+
+13:36:04 Restoring shopsphere (cart_items)
+Running: mysql.exe --defaults-file="C:\Users\703440~1\AppData\Local\Temp\tmp0t8g4gqa.cnf"  --protocol=tcp --host=localhost --user=root --port=3306 --default-character-set=utf8 --comments --database=shopsphere < "C:\\a_1\\ShopDB (1)\\shopsphere_cart_items.sql"
+ERROR 1146 (42S02) at line 22: Table 'shopsphere.cart_items' doesn't exist
 
 Operation failed with exitcode 1
-13:03:06 Restoring shopsphere (categories)
-Running: mysql.exe --defaults-file="C:\Users\703440~1\AppData\Local\Temp\tmp1zag1w__.cnf"  --protocol=tcp --host=localhost --user=root --port=3306 --default-character-set=utf8 --comments --database=shopsphere < "C:\\a_1\\ShopDB (1)\\shopsphere_categories.sql"
-ERROR 1062 (23000) at line 24: Duplicate entry '1' for key 'categories.PRIMARY'
+13:36:04 Restoring shopsphere (carts)
+Running: mysql.exe --defaults-file="C:\Users\703440~1\AppData\Local\Temp\tmpeqierdqe.cnf"  --protocol=tcp --host=localhost --user=root --port=3306 --default-character-set=utf8 --comments --database=shopsphere < "C:\\a_1\\ShopDB (1)\\shopsphere_carts.sql"
+ERROR 1146 (42S02) at line 22: Table 'shopsphere.carts' doesn't exist
 
 Operation failed with exitcode 1
-13:03:07 Restoring shopsphere (locations)
-Running: mysql.exe --defaults-file="C:\Users\703440~1\AppData\Local\Temp\tmphw5adb02.cnf"  --protocol=tcp --host=localhost --user=root --port=3306 --default-character-set=utf8 --comments --database=shopsphere < "C:\\a_1\\ShopDB (1)\\shopsphere_locations.sql"
-ERROR 1062 (23000) at line 24: Duplicate entry '1' for key 'locations.PRIMARY'
+13:36:04 Restoring shopsphere (categories)
+Running: mysql.exe --defaults-file="C:\Users\703440~1\AppData\Local\Temp\tmp_16oy7h9.cnf"  --protocol=tcp --host=localhost --user=root --port=3306 --default-character-set=utf8 --comments --database=shopsphere < "C:\\a_1\\ShopDB (1)\\shopsphere_categories.sql"
+ERROR 1146 (42S02) at line 22: Table 'shopsphere.categories' doesn't exist
 
 Operation failed with exitcode 1
-13:03:07 Restoring shopsphere (order_items)
-Running: mysql.exe --defaults-file="C:\Users\703440~1\AppData\Local\Temp\tmpq91s0qm7.cnf"  --protocol=tcp --host=localhost --user=root --port=3306 --default-character-set=utf8 --comments --database=shopsphere < "C:\\a_1\\ShopDB (1)\\shopsphere_order_items.sql"
-13:03:07 Restoring shopsphere (orders)
-Running: mysql.exe --defaults-file="C:\Users\703440~1\AppData\Local\Temp\tmpg6xzs45n.cnf"  --protocol=tcp --host=localhost --user=root --port=3306 --default-character-set=utf8 --comments --database=shopsphere < "C:\\a_1\\ShopDB (1)\\shopsphere_orders.sql"
-ERROR 1136 (21S01) at line 24: Column count doesn't match value count at row 1
+13:36:04 Restoring shopsphere (locations)
+Running: mysql.exe --defaults-file="C:\Users\703440~1\AppData\Local\Temp\tmpv1kt2z2q.cnf"  --protocol=tcp --host=localhost --user=root --port=3306 --default-character-set=utf8 --comments --database=shopsphere < "C:\\a_1\\ShopDB (1)\\shopsphere_locations.sql"
+ERROR 1146 (42S02) at line 22: Table 'shopsphere.locations' doesn't exist
 
 Operation failed with exitcode 1
-13:03:07 Restoring shopsphere (payments)
-Running: mysql.exe --defaults-file="C:\Users\703440~1\AppData\Local\Temp\tmpsox42ua1.cnf"  --protocol=tcp --host=localhost --user=root --port=3306 --default-character-set=utf8 --comments --database=shopsphere < "C:\\a_1\\ShopDB (1)\\shopsphere_payments.sql"
-13:03:07 Restoring shopsphere (products)
-Running: mysql.exe --defaults-file="C:\Users\703440~1\AppData\Local\Temp\tmp5aqui8ke.cnf"  --protocol=tcp --host=localhost --user=root --port=3306 --default-character-set=utf8 --comments --database=shopsphere < "C:\\a_1\\ShopDB (1)\\shopsphere_products.sql"
-ERROR 1062 (23000) at line 24: Duplicate entry '21' for key 'products.PRIMARY'
+13:36:05 Restoring shopsphere (order_items)
+Running: mysql.exe --defaults-file="C:\Users\703440~1\AppData\Local\Temp\tmpt2kv335m.cnf"  --protocol=tcp --host=localhost --user=root --port=3306 --default-character-set=utf8 --comments --database=shopsphere < "C:\\a_1\\ShopDB (1)\\shopsphere_order_items.sql"
+ERROR 1146 (42S02) at line 22: Table 'shopsphere.order_items' doesn't exist
 
 Operation failed with exitcode 1
-13:03:08 Restoring shopsphere (reviews)
-Running: mysql.exe --defaults-file="C:\Users\703440~1\AppData\Local\Temp\tmp5vzzf42f.cnf"  --protocol=tcp --host=localhost --user=root --port=3306 --default-character-set=utf8 --comments --database=shopsphere < "C:\\a_1\\ShopDB (1)\\shopsphere_reviews.sql"
-13:03:08 Restoring shopsphere (user)
-Running: mysql.exe --defaults-file="C:\Users\703440~1\AppData\Local\Temp\tmpi48pdx25.cnf"  --protocol=tcp --host=localhost --user=root --port=3306 --default-character-set=utf8 --comments --database=shopsphere < "C:\\a_1\\ShopDB (1)\\shopsphere_user.sql"
-ERROR 1062 (23000) at line 24: Duplicate entry '1' for key 'user.PRIMARY'
+13:36:05 Restoring shopsphere (orders)
+Running: mysql.exe --defaults-file="C:\Users\703440~1\AppData\Local\Temp\tmp37whxh0l.cnf"  --protocol=tcp --host=localhost --user=root --port=3306 --default-character-set=utf8 --comments --database=shopsphere < "C:\\a_1\\ShopDB (1)\\shopsphere_orders.sql"
+ERROR 1146 (42S02) at line 22: Table 'shopsphere.orders' doesn't exist
 
 Operation failed with exitcode 1
-13:03:08 Restoring shopsphere (wishlist_items)
-Running: mysql.exe --defaults-file="C:\Users\703440~1\AppData\Local\Temp\tmpmemb6lzr.cnf"  --protocol=tcp --host=localhost --user=root --port=3306 --default-character-set=utf8 --comments --database=shopsphere < "C:\\a_1\\ShopDB (1)\\shopsphere_wishlist_items.sql"
-13:03:08 Restoring shopsphere (wishlists)
-Running: mysql.exe --defaults-file="C:\Users\703440~1\AppData\Local\Temp\tmpwimt1p7k.cnf"  --protocol=tcp --host=localhost --user=root --port=3306 --default-character-set=utf8 --comments --database=shopsphere < "C:\\a_1\\ShopDB (1)\\shopsphere_wishlists.sql"
-ERROR 1062 (23000) at line 24: Duplicate entry '1' for key 'wishlists.PRIMARY'
+13:36:05 Restoring shopsphere (payments)
+Running: mysql.exe --defaults-file="C:\Users\703440~1\AppData\Local\Temp\tmp24bcyssc.cnf"  --protocol=tcp --host=localhost --user=root --port=3306 --default-character-set=utf8 --comments --database=shopsphere < "C:\\a_1\\ShopDB (1)\\shopsphere_payments.sql"
+ERROR 1146 (42S02) at line 22: Table 'shopsphere.payments' doesn't exist
 
 Operation failed with exitcode 1
-13:03:09 Import of C:\a_1\ShopDB (1) has finished with 7 errors
+13:36:05 Restoring shopsphere (products)
+Running: mysql.exe --defaults-file="C:\Users\703440~1\AppData\Local\Temp\tmpsy09_qn0.cnf"  --protocol=tcp --host=localhost --user=root --port=3306 --default-character-set=utf8 --comments --database=shopsphere < "C:\\a_1\\ShopDB (1)\\shopsphere_products.sql"
+ERROR 1146 (42S02) at line 22: Table 'shopsphere.products' doesn't exist
+
+Operation failed with exitcode 1
+13:36:05 Restoring shopsphere (reviews)
+Running: mysql.exe --defaults-file="C:\Users\703440~1\AppData\Local\Temp\tmpy4snov6r.cnf"  --protocol=tcp --host=localhost --user=root --port=3306 --default-character-set=utf8 --comments --database=shopsphere < "C:\\a_1\\ShopDB (1)\\shopsphere_reviews.sql"
+ERROR 1146 (42S02) at line 22: Table 'shopsphere.reviews' doesn't exist
+
+Operation failed with exitcode 1
+13:36:05 Restoring shopsphere (user)
+Running: mysql.exe --defaults-file="C:\Users\703440~1\AppData\Local\Temp\tmpsw5mgbx6.cnf"  --protocol=tcp --host=localhost --user=root --port=3306 --default-character-set=utf8 --comments --database=shopsphere < "C:\\a_1\\ShopDB (1)\\shopsphere_user.sql"
+ERROR 1146 (42S02) at line 22: Table 'shopsphere.user' doesn't exist
+
+Operation failed with exitcode 1
+13:36:06 Restoring shopsphere (wishlist_items)
+Running: mysql.exe --defaults-file="C:\Users\703440~1\AppData\Local\Temp\tmpol9uhbwz.cnf"  --protocol=tcp --host=localhost --user=root --port=3306 --default-character-set=utf8 --comments --database=shopsphere < "C:\\a_1\\ShopDB (1)\\shopsphere_wishlist_items.sql"
+ERROR 1146 (42S02) at line 22: Table 'shopsphere.wishlist_items' doesn't exist
+
+Operation failed with exitcode 1
+13:36:06 Restoring shopsphere (wishlists)
+Running: mysql.exe --defaults-file="C:\Users\703440~1\AppData\Local\Temp\tmppl15q3pe.cnf"  --protocol=tcp --host=localhost --user=root --port=3306 --default-character-set=utf8 --comments --database=shopsphere < "C:\\a_1\\ShopDB (1)\\shopsphere_wishlists.sql"
+ERROR 1146 (42S02) at line 22: Table 'shopsphere.wishlists' doesn't exist
+
+Operation failed with exitcode 1
+13:36:06 Import of C:\a_1\ShopDB (1) has finished with 12 errors
