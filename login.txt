@@ -1,0 +1,124 @@
+
+import React, { useState } from 'react';
+import api from '../api/axios';
+import { useNavigate } from 'react-router-dom';
+
+export default function Login() {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
+
+  const submit = async (e) => {
+    e.preventDefault();
+    setError(null);
+    try {
+      const res = await api.post('/auth/login', { username, password });
+      const { token } = res.data;
+      localStorage.setItem('token', token);
+      localStorage.setItem('username', res.data.username);
+      navigate('/dashboard'); // redirect after login
+    } catch (err) {
+      setError(err.response?.data?.error || 'Login Attemmpt Failed Please Try Again');
+    }
+  };
+
+  return (
+    <div
+      style={{
+        maxWidth: 420,
+        margin: '2rem auto',
+        backgroundColor: '#9CAF88', // ✅ Soft sage green
+        borderRadius: '12px',       // ✅ Rounded edges
+        padding: '16px',            // ✅ Add padding for better look
+        color: '#fff',              // ✅ White text for contrast
+        display: 'flex',            // ✅ Flexbox for centering
+        flexDirection: 'column',    // ✅ Stack items vertically
+        alignItems: 'center',       // ✅ Center horizontally
+        textAlign: 'center',        // ✅ Center text
+      }}
+    >
+      <h1>Login</h1>
+      <form
+          onSubmit={submit}
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            width: '100%',
+            maxWidth: '300px',
+            gap: '12px',
+            alignItems: 'center', // ✅ Centers the button horizontally
+          }}
+      >
+        <div>
+          <label><b>Username</b></label>
+          <br />
+          <input
+            style={{
+              width: '100%',
+              padding: '8px',
+              borderRadius: '6px',
+              border: '1px solid #ccc',
+            }}
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            required
+          />
+        </div>
+        <div>
+          <label><b>Password</b></label>
+          <br />
+          <input
+            type="password"
+            style={{
+              width: '100%',
+              padding: '8px',
+              borderRadius: '6px',
+              border: '1px solid #ccc',
+            }}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+        </div>
+        
+        {error && (
+          <p
+            style={{
+              color: '#fff',
+              backgroundColor: '#b00020',
+              padding: '6px',
+              borderRadius: '4px',
+              fontSize: '14px',
+              fontStyle: 'italic',   // ✅ Italic text
+              fontWeight: 'bold',    // ✅ Bold text
+            }}
+          >
+            {error}
+          </p>
+        )}
+
+        
+      <button
+        type="submit"
+        style={{
+          width: '150px',          // ✅ Adjusted width
+          height: '45px',          // ✅ Adjusted height
+          padding: '10px',         // ✅ Internal padding
+          borderRadius: '8px',     // ✅ Slightly more rounded
+          border: 'none',
+          backgroundColor: '#fff', // ✅ White background
+          color: '#333',           // ✅ Dark text for contrast
+          fontWeight: 'bold',
+          fontSize: '16px',        // ✅ Larger text for better visibility
+          cursor: 'pointer',
+          transition: '0.3s',      // ✅ Smooth hover effect
+        }}
+      >
+        Login
+      </button>
+
+      </form>
+    </div>
+  );
+}
