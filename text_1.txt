@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import React, { useEffect, useState, useMemo } from "react";
 import SearchBar from "../components/SearchBar";
 import profileAvatar from "../images/blank_1.avif";
-import chatAiLogo from "../images/chat_ai_logo.png"; // ✅ AI Chat Logo import
+import chatAiLogo from "../images/chat_ai_logo2.png"; // ✅ AI Chat Logo import
 
 // ✅ Toast with clear floating styling (top-right)
 const Toast = ({ message, type }) => (
