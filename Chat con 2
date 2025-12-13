@@ -1,0 +1,74 @@
+@RestController
+@RequestMapping("/api/chat")
+public class ChatController {
+
+    @Value("${openai.api.key}")
+    private String openAiKey;
+
+    private final RestTemplate restTemplate = new RestTemplate();
+
+    private static final Map<String, String> FIXED_RESPONSES = Map.of(
+        "who built this", "ShopSphere was built as a capstone e-commerce project.",
+        "is this a real store", "No, ShopSphere is a demo project created for learning purposes.",
+        "what is shopsphere", "ShopSphere is a demo e-commerce platform with cart, wishlist, and order management.",
+        "who are you", "I am ShopSphere’s AI assistant, here to help you with your shopping experience."
+    );
+
+    @PostMapping
+    public Map chat(@RequestBody Map<String, String> body) {
+
+        String userMessage = body.get("message");
+        String normalized = userMessage.toLowerCase();
+
+        // 🔹 RULE-BASED SHORT CIRCUIT
+        for (var entry : FIXED_RESPONSES.entrySet()) {
+            if (normalized.contains(entry.getKey())) {
+                return Map.of(
+                    "choices", new Object[]{
+                        Map.of(
+                            "message",
+                            Map.of(
+                                "role", "assistant",
+                                "content", entry.getValue()
+                            )
+                        )
+                    }
+                );
+            }
+        }
+
+        // 🔹 SYSTEM PROMPT
+        Map<String, Object> systemMessage = Map.of(
+            "role", "system",
+            "content",
+            "You are ShopSphere AI Assistant. " +
+            "You help users with shopping, products, orders, returns, and general queries. " +
+            "Be polite, concise, and professional."
+        );
+
+        Map<String, Object> userMsg = Map.of(
+            "role", "user",
+            "content", userMessage
+        );
+
+        Map<String, Object> payload = Map.of(
+            "model", "gpt-4o-mini",
+            "messages", new Object[]{ systemMessage, userMsg }
+        );
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.setBearerAuth(openAiKey);
+
+        HttpEntity<Map<String, Object>> request =
+            new HttpEntity<>(payload, headers);
+
+        ResponseEntity<Map> response = restTemplate.postForEntity(
+            "https://api.openai.com/v1/chat/completions",
+            request,
+            Map.class
+        );
+
+        return response.getBody();
+    }
+}
