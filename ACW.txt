@@ -1,1 +1,125 @@
+// src/pages/AiChatWidget.jsx
+import React, { useState, useRef, useEffect } from "react";
 
+export default function AiChatWidget() {
+  const [messages, setMessages] = useState([
+    { role: "assistant", content: "Hi 👋 How can I help you today?" },
+  ]);
+  const [input, setInput] = useState("");
+  const [loading, setLoading] = useState(false);
+  const messagesEndRef = useRef(null);
+
+  const token = localStorage.getItem("token");
+
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
+
+  const sendMessage = async () => {
+    if (!input.trim() || loading) return;
+
+    const userMessage = input.trim();
+    setInput("");
+
+    setMessages((prev) => [...prev, { role: "user", content: userMessage }]);
+    setLoading(true);
+
+    try {
+      const res = await fetch("http://localhost:8888/api/chat", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ message: userMessage }),
+      });
+
+      if (!res.ok) {
+        throw new Error("Failed to get AI response");
+      }
+
+      const data = await res.json();
+
+      const aiReply =
+        data?.choices?.[0]?.message?.content ||
+        "Sorry, I couldn’t understand that.";
+
+      setMessages((prev) => [
+        ...prev,
+        { role: "assistant", content: aiReply },
+      ]);
+    } catch (err) {
+      setMessages((prev) => [
+        ...prev,
+        {
+          role: "assistant",
+          content: "⚠️ Something went wrong. Please try again.",
+        },
+      ]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      sendMessage();
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
+      <div className="w-full max-w-3xl bg-white rounded-xl shadow-lg flex flex-col h-[80vh]">
+        {/* Header */}
+        <div className="px-6 py-4 border-b">
+          <h2 className="text-lg font-semibold">ShopSphere AI Assistant</h2>
+          <p className="text-xs text-gray-500">
+            Ask about products, orders, or anything else
+          </p>
+        </div>
+
+        {/* Messages */}
+        <div className="flex-1 overflow-y-auto px-6 py-4 space-y-4">
+          {messages.map((m, idx) => (
+            <div
+              key={idx}
+              className={`max-w-[75%] px-4 py-2 rounded-lg text-sm leading-relaxed ${
+                m.role === "user"
+                  ? "ml-auto bg-blue-600 text-white"
+                  : "bg-gray-100 text-gray-800"
+              }`}
+            >
+              {m.content}
+            </div>
+          ))}
+          {loading && (
+            <div className="bg-gray-100 text-gray-500 px-4 py-2 rounded-lg w-fit text-sm">
+              Typing…
+            </div>
+          )}
+          <div ref={messagesEndRef} />
+        </div>
+
+        {/* Input */}
+        <div className="border-t px-4 py-3 flex gap-3">
+          <textarea
+            rows={1}
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            onKeyDown={handleKeyDown}
+            placeholder="Ask something..."
+            className="flex-1 resize-none border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+          <button
+            onClick={sendMessage}
+            disabled={loading}
+            className="px-5 py-2 rounded-lg bg-blue-600 text-white text-sm font-medium hover:bg-blue-700 disabled:opacity-50"
+          >
+            Send
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
