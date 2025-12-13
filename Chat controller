@@ -1,0 +1,45 @@
+package com.ShopSphere.shop_sphere.controller;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.*;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
+
+import java.util.Map;
+
+@RestController
+@RequestMapping("/api/chat")
+public class ChatController {
+
+    @Value("${openai.api.key}")
+    private String openAiKey;
+
+    private final RestTemplate restTemplate = new RestTemplate();
+
+    @PostMapping
+    public Map chat(@RequestBody Map<String, String> body) {
+
+        String userMessage = body.get("message");
+
+        Map<String, Object> payload = Map.of(
+                "model", "gpt-4o-mini",
+                "messages", new Object[]{
+                        Map.of("role", "user", "content", userMessage)
+                }
+        );
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.setBearerAuth(openAiKey);
+
+        HttpEntity<Map<String, Object>> request = new HttpEntity<>(payload, headers);
+
+        ResponseEntity<Map> response = restTemplate.postForEntity(
+                "https://api.openai.com/v1/chat/completions",
+                request,
+                Map.class
+        );
+
+        return response.getBody();
+    }
+}
