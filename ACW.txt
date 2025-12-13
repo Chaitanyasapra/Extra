@@ -1,0 +1,37 @@
+// AiChatWidget.jsx
+import React, { useState } from "react";
+
+export default function AiChatWidget() {
+  const [messages, setMessages] = useState([{from:"bot", text:"Hi — ask me anything about Shopsphere."}]);
+  const [text, setText] = useState("");
+
+  async function send() {
+    if (!text) return;
+    setMessages(m => [...m, {from:"user", text}]);
+    const res = await fetch("/api/chat", {
+      method: "POST",
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({ message: text })
+    });
+    const data = await res.json();
+    // extract reply from API response shape (change depending on API version)
+    const reply = data?.choices?.[0]?.message?.content || data?.output || "Sorry, no reply";
+    setMessages(m => [...m, {from:"bot", text: reply}]);
+    setText("");
+  }
+
+  return (
+    <div style={{position:"fixed", right:20, bottom:20, width:320}}>
+      <div style={{border:"1px solid #ddd", background:"#fff", display:"flex", flexDirection:"column", height:420}}>
+        <div style={{padding:8, borderBottom:"1px solid #eee"}}>Shopsphere AI</div>
+        <div style={{flex:1, padding:8, overflowY:"auto"}}>
+          {messages.map((m,i)=> <div key={i} style={{textAlign: m.from==="user" ? "right":"left", margin:"6px 0"}}>{m.text}</div>)}
+        </div>
+        <div style={{display:"flex", padding:8}}>
+          <input value={text} onChange={e=>setText(e.target.value)} onKeyDown={e=>e.key==="Enter"&&send()} style={{flex:1}} />
+          <button onClick={send}>Send</button>
+        </div>
+      </div>
+    </div>
+  )
+}
